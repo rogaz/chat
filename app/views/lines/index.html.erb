@@ -1,0 +1,25 @@
+<h1>Listing lines</h1>
+
+<table>
+  <tr>
+    <th>Room</th>
+    <th>Text</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lines.each do |line| %>
+  <tr>
+    <td><%= line.room_id %></td>
+    <td><%= line.text %></td>
+    <td><%= link_to 'Show', line %></td>
+    <td><%= link_to 'Edit', edit_line_path(line) %></td>
+    <td><%= link_to 'Destroy', line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Line', new_line_path %>

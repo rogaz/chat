@@ -1,0 +1,136 @@
+<script src="http://localhost:3001/socket.io/socket.io.js"></script>
+<!--<script src="http://192.168.1.143:3001/socket.io/socket.io.js"></script>-->
+
+<p id="notice"><%= notice %></p>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("textarea#line_text").keypress(function(e){
+      if (e.which == 13){
+        $("form#new_line").submit();
+        $('#line_text').focus().val('');
+      }
+      if (e.keyCode == 13 && !e.shiftKey){
+          e.preventDefault();
+      }
+    });
+  });
+
+  function create_line(data){
+      $("#lines").append("<%= escape_javascript (render :partial => '/lines/line') %>");
+      //console.log(data);
+      //var line = JSON.parse(data[0]);
+      //var user = JSON.parse(data[1]);
+      var line = data[0];
+      var user = data[1];
+      var last_line = $("#lines").find(".line:last");
+      last_line.attr('id', 'line_'+line.id);
+      last_line.find('.user_name').html(user.name);
+      last_line.find('.text').html(line.text);
+      last_line.find('a').attr('href', '/lines/'+line.id);
+
+      move_to_bottom();
+      /*
+      var user_id;
+      if (data[0].user_id != null)
+          user_id = data[0].user_id;
+      else
+          user_id = '';
+
+      //var html = '<div id="line_'+data[0].id+'" class="line">'+data[0].text+user_id+'<a rel="nofollow" format="js" data-remote="true" data-method="delete" data-confirm="Are you sure?" href="/lines/'+data[0].id+'"><i class="icon-remove"></i></a>';
+      var html = '<div id="line_'+data[0].id+'" class="line"><span class="label label-success user_name">'+data[1].name+'</span> '+data[0].text+'<a rel="nofollow" format="js" data-remote="true" data-method="delete" href="/lines/'+data[0].id+'"><i class="icon-remove"></i></a>';
+      $('#lines').append(html);
+      var height = (($("#lines > .line").size()) * $(".line").eq(0).height());
+      $("#lines").animate({ scrollTop: height}, 'slow');
+      $("#line_"+data[0].id).hide().fadeIn(500);
+      */
+  }
+
+  function destroy_line(data){
+      $("#line_"+data).fadeOut(100);
+  }
+
+  function move_to_bottom(){
+      $("#lines").scrollTop($("#lines")[0].scrollHeight);
+  }
+
+</script>
+<script>
+    //var socket = io.connect('http://189.155.241.101:3001');
+    var socket = io.connect('http://localhost:3001');
+    //var socket = io.connect('http://192.168.1.143:3001');
+
+    function emit_message(room, data){
+        //console.log('se envía...');
+        socket.emit('create_line', {room: room, data: data});
+    }
+
+
+    socket.on('make_line_to_'+<%= @room.id %>, function (data) {
+        //console.log(data[0]);
+        //console.log(data[1]);
+        //console.log(JSON.parse(data));
+        console.log('recibe');
+        create_line(data);
+    });
+
+    function emit_message_destroy(room_id, line_id){
+        //console.log(line_id);
+        socket.emit('destroy_line', {room_id: room_id, line_id: line_id})
+    }
+
+    socket.on('destroy_line_to_'+<%= @room.id %>, function(data){
+        //console.log(data);
+        destroy_line(data);
+    });
+</script>
+<p>
+  <%= @room.name if @room.users.count > 2 %>
+</p>
+
+<% (@room.users - [current_user]).each do |user| %>
+  <div class="user" style="float: left; margin-right: 5px;">
+    <span class="label label-info"><%= user.name %></span>
+  </div>
+<% end %>
+
+<div id="lines_container">
+  <div id="lines">
+    <% @room.lines.each do |line| %>
+        <script>
+          var line = <%= line.to_json.html_safe %>;
+          var user = <%= line.user.to_json.html_safe %>;
+          create_line([line, user]);
+        </script>
+        <!--% @line = line >
+        < @user= line.user >
+        <= render '/lines/line' %-->
+    <% end %>
+  </div>
+  <script>move_to_bottom();</script>
+  <div id="form">
+    <% @line = Line.new %>
+    <%= form_for(@line, :remote => true, :format => :js) do |f| %>
+        <% if @line.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@line.errors.count, "error") %> prohibited this line from being saved:</h2>
+
+              <ul>
+                <% @line.errors.full_lines.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :room_id, :value => @room.id %>
+        <%= f.text_area :text, :placeholder => 'Escriba el mensaje...' %>
+
+    <% end %>
+  </div>
+</div>
+
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>

@@ -1,0 +1,65 @@
+// Place all the styles related to the Rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#lines_container{
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+  border: 1px solid #AAA;
+  box-shadow: #BBB 1px 1px 5px inset;
+  #lines{
+    height: 80%;
+    overflow: auto;
+    .line{
+      padding: 0px 15px 0px 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      //border-radius: 10px;
+      margin: 10px;
+      //box-shadow: #777 1px 1px 2px;
+      position: relative;
+      font-size: .9em;
+      a{
+        text-decoration: none;
+        margin-left: 10px;
+        position: absolute;
+        top:  5px;
+        right: 5px;
+      }
+      .user_name{
+        margin-right: 15px;
+      }
+    }
+  }
+  #form{
+    height: 20%;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    #new_line{
+      margin: 0;
+      height: 100%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      -o-box-sizing: border-box;
+      box-sizing: border-box;
+      #line_text{
+        resize: none;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
+

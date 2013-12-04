@@ -1,0 +1,12 @@
+<div>
+<h2>Inicia Sesión</h2>
+<%= form_for(:user_session, :url => user_session_url) do |f| %>
+  <%= f.label :login, "Usuario" %>
+  <%= f.text_field :login %><br/>
+  <%= f.label :password, "Contraseña" %>
+  <%= f.password_field :password %><br/><br/>
+
+  <%= f.submit "Inicia Sesión", :class => "btn btn-success" %><br/>
+
+<% end %>
+</div>

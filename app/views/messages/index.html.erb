@@ -1,0 +1,84 @@
+<!--script src="http://189.155.231.152:3001/socket.io/socket.io.js"></script-->
+<!--script src="http://192.168.1.236:3001/socket.io/socket.io.js"></script-->
+<script>
+  function create_message(data){
+      var user_id;
+      if (data[0].user_id != null)
+        user_id = data[0].user_id;
+      else
+        user_id = '';
+
+      //var html = '<div id="message_'+data[0].id+'" class="message">'+data[0].text+user_id+'<a rel="nofollow" format="js" data-remote="true" data-method="delete" data-confirm="Are you sure?" href="/messages/'+data[0].id+'"><i class="icon-remove"></i></a>';
+      var html = '<div id="message_'+data[0].id+'" class="message"><span class="label label-success user_name">'+data[1].name+'</span> '+data[0].text+'<a rel="nofollow" format="js" data-remote="true" data-method="delete" href="/messages/'+data[0].id+'"><i class="icon-remove"></i></a>';
+      $('#messages').append(html);
+      var height = (($("#messages > .message").size()) * $(".message").eq(0).height());
+      $("#messages").animate({ scrollTop: height}, 'slow');
+      $("#message_"+data[0].id).hide().fadeIn(500);
+  }
+
+  function destroy_message(data){
+      $("#message_"+data).fadeOut(300);
+  }
+
+  $(document).ready(function(){
+      $("textarea#message_text").keypress(function(e){
+          if (e.which == 13){
+              $("form#new_message").submit();
+              $('#message_text').focus().val('');
+          }
+      });
+
+      $("#message_text").focus(function(){
+
+      });
+  });
+</script>
+<script>
+    //var socket = io.connect('http://189.155.241.101:3001');
+    var socket = io.connect('http://localhost:3001');
+
+    socket.on('create_message', function (data) {
+        create_message(JSON.parse(data));
+    });
+    socket.on('destroy_message', function (data) {
+        destroy_message(JSON.parse(data));
+    });
+</script>
+
+<div id="messages_container">
+<div id="messages">
+<% @messages.each do |message| %>
+    <div id="message_<%= message.id %>" class="message ">
+        <span class="label label-success user_name"><%= message.user.name %></span>
+        <%= message.text %>
+        <!--= link_to "<i class='icon-remove'></i>".html_safe, message, method: :delete, :format => :js, :remote => true, data: { confirm: 'Are you sure?' }, :class => 'destroy_button' %-->
+        <%= link_to "<i class='icon-remove'></i>".html_safe, message, method: :delete, :format => :js, :remote => true, :class => 'destroy_button' %>
+    </div>
+<% end %>
+  </div>
+  <div id="form">
+  <% @message = Message.new %>
+  <%= form_for(@message, :remote => true, :format => :js) do |f| %>
+      <% if @message.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+            <ul>
+              <% @message.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.text_area :text, :placeholder => 'Escriba el mensaje...' %>
+
+  <% end %>
+  </div>
+</div>
+
+
+
+<br />
+

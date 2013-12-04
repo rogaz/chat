@@ -1,0 +1,10 @@
+cache/*
+log/*.log
+public/system/*
+db/*.sqlite3
+.idea/
+tmp/*
+.sass-cache/
+
+
+Gemfile.lock

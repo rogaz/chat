@@ -1,0 +1,48 @@
+<h1>Mensajes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @rooms.each do |room| %>
+      <% if room.users.count > 1 %>
+          <tr>
+            <td><%= link_to "#{(room.users - [current_user])[0].name}", room %></td>
+            <!--
+            <td><%= link_to 'Edit', edit_room_path(room) %></td>
+            <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            -->
+          </tr>
+      <% end %>
+  <% end %>
+</table>
+
+<h1>Grupos</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rooms.each do |room| %>
+  <% if room.users.count > 2 %>
+  <tr>
+    <td><%= room.name %></td>
+    <td><%= link_to 'Show', room %></td>
+    <td><%= link_to 'Edit', edit_room_path(room) %></td>
+    <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Room', new_room_path %>

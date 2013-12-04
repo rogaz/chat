@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Messaging</title>
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag params[:controller] %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag params[:controller] %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+      body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+      }
+      .sidebar-nav {
+          padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+          /* Enable use of floated navbar text */
+          .navbar-text.pull-right {
+              float: none;
+              padding-left: 5px;
+              padding-right: 5px;
+          }
+      }
+  </style>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="#">Messaging</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><%= link_to 'Grupos', rooms_path %></li>
+        </ul>
+        <ul class="nav pull-right">
+          <% if current_user %>
+              <li><%= link_to 'Cerrar Sesión', sign_out_url, :method => :delete %></li>
+              <li><a href="#" class="navbar-link">Logged in as <%= current_user.name %></a></li>
+          <% else %>
+              <li><%= link_to 'Iniciar sesión', signin_path %></li>
+              <li><%= link_to 'Registrarse', new_user_path %></li>
+          <% end %>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <% if current_user %>
+          <li class="nav-header">Mensajes</li>
+            <% current_user.rooms.each do |room| %>
+              <% if room.users.count > 1 %>
+                <li><%= link_to "#{(room.users - [current_user])[0].name}", room %></li>
+              <% end %>
+            <% end %>
+            <li class="nav-header">Grupos</li>
+            <% current_user.rooms.each do |room| %>
+              <% if room.users.count > 2 %>
+                <li><%= link_to "#{room.name}", room %></li>
+             <% end %>
+            <% end %>
+          <% end %>
+          <!--
+          <li class="nav-header">Sidebar</li>
+          <li class="active"><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li class="nav-header">Sidebar</li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li class="nav-header">Sidebar</li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          -->
+        </ul>
+      </div><!--/.well -->
+    </div><!--/span-->
+    <div class="span9">
+      <div class="hero-unit">
+          <%= yield %>
+      </div>
+
+    </div><!--/span-->
+  </div><!--/row-->
+
+  <hr>
+
+  <footer>
+    <p>&copy; Company 2013</p>
+  </footer>
+
+</div><!--/.fluid-container-->
+</body>
+</html>

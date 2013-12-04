@@ -1,0 +1,55 @@
+info: socket.io started
+debug: client authorized
+info: handshake authorized O8AWbe2HJdcxwVoaW2jq
+debug: setting request GET /socket.io/1/websocket/O8AWbe2HJdcxwVoaW2jq
+debug: set heartbeat interval for client O8AWbe2HJdcxwVoaW2jq
+debug: client authorized for 
+debug: websocket writing 1::
+info: transport end (undefined)
+debug: set close timeout for client O8AWbe2HJdcxwVoaW2jq
+debug: cleared close timeout for client O8AWbe2HJdcxwVoaW2jq
+debug: cleared heartbeat interval for client O8AWbe2HJdcxwVoaW2jq
+debug: discarding transport
+debug: client authorized
+info: handshake authorized N7Stcu9m4_6_S6ZeW2jr
+debug: setting request GET /socket.io/1/websocket/N7Stcu9m4_6_S6ZeW2jr
+debug: set heartbeat interval for client N7Stcu9m4_6_S6ZeW2jr
+debug: client authorized for 
+debug: websocket writing 1::
+info: transport end (undefined)
+debug: set close timeout for client N7Stcu9m4_6_S6ZeW2jr
+debug: cleared close timeout for client N7Stcu9m4_6_S6ZeW2jr
+debug: cleared heartbeat interval for client N7Stcu9m4_6_S6ZeW2jr
+debug: discarding transport
+debug: client authorized
+info: handshake authorized Eg1blcl61WlXv6RdW2js
+debug: setting request GET /socket.io/1/websocket/Eg1blcl61WlXv6RdW2js
+debug: set heartbeat interval for client Eg1blcl61WlXv6RdW2js
+debug: client authorized for 
+debug: websocket writing 1::
+debug: websocket writing 5:::{"name":"create_message","args":["[{\"created_at\":\"2013-06-07T15:59:14Z\",\"id\":724,\"text\":\"weqouidfwheiufh\",\"updated_at\":\"2013-06-07T15:59:14Z\",\"user_id\":1},{\"created_at\":\"2013-06-07T05:28:33Z\",\"crypted_password\":\"4297f44b13955235245b2497399d7a93\",\"id\":1,\"login\":\"raul\",\"name\":\"Raul\",\"persistence_token\":\"95c72305e27fbee6a6a979779f5fb80ac3ceeb42658f7b097874cb356e220054df73bba38267f0edf9f34983f54b8403ec70e1eec0f7446bbcd100ba28c54698\",\"updated_at\":\"2013-06-07T05:28:33Z\"}]"]}
+debug: websocket writing 5:::{"name":"create_message","args":["[{\"created_at\":\"2013-06-07T15:59:20Z\",\"id\":725,\"text\":\"que rollo\",\"updated_at\":\"2013-06-07T15:59:20Z\",\"user_id\":1},{\"created_at\":\"2013-06-07T05:28:33Z\",\"crypted_password\":\"4297f44b13955235245b2497399d7a93\",\"id\":1,\"login\":\"raul\",\"name\":\"Raul\",\"persistence_token\":\"95c72305e27fbee6a6a979779f5fb80ac3ceeb42658f7b097874cb356e220054df73bba38267f0edf9f34983f54b8403ec70e1eec0f7446bbcd100ba28c54698\",\"updated_at\":\"2013-06-07T05:28:33Z\"}]"]}
+debug: websocket writing 5:::{"name":"destroy_message","args":["725"]}
+debug: websocket writing 5:::{"name":"destroy_message","args":["724"]}
+info: transport end (undefined)
+debug: set close timeout for client Eg1blcl61WlXv6RdW2js
+debug: cleared close timeout for client Eg1blcl61WlXv6RdW2js
+debug: cleared heartbeat interval for client Eg1blcl61WlXv6RdW2js
+debug: discarding transport
+debug: client authorized
+info: handshake authorized 6_RkLamBznxIQNwoW2jt
+debug: setting request GET /socket.io/1/websocket/6_RkLamBznxIQNwoW2jt
+debug: set heartbeat interval for client 6_RkLamBznxIQNwoW2jt
+debug: client authorized for 
+debug: websocket writing 1::
+info: transport end (undefined)
+debug: set close timeout for client 6_RkLamBznxIQNwoW2jt
+debug: cleared close timeout for client 6_RkLamBznxIQNwoW2jt
+debug: cleared heartbeat interval for client 6_RkLamBznxIQNwoW2jt
+debug: discarding transport
+debug: client authorized
+info: handshake authorized IOhHoM-COEJA2kiOW2ju
+debug: setting request GET /socket.io/1/websocket/IOhHoM-COEJA2kiOW2ju
+debug: set heartbeat interval for client IOhHoM-COEJA2kiOW2ju
+debug: client authorized for 
+debug: websocket writing 1::
