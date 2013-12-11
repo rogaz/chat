@@ -25,7 +25,7 @@ test:
 production:
   adapter: postgresql
   host: localhost
-  database: prueba
+  database: chat
   username: prueba
   password: prueba
   pool: 5
