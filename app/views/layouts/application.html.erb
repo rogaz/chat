@@ -10,109 +10,66 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style type="text/css">
-      body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-      }
-      .sidebar-nav {
-          padding: 9px 0;
-      }
 
-      @media (max-width: 980px) {
-          /* Enable use of floated navbar text */
-          .navbar-text.pull-right {
-              float: none;
-              padding-left: 5px;
-              padding-right: 5px;
-          }
-      }
   </style>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#">Messaging</a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><%= link_to 'Grupos', rooms_path %></li>
-        </ul>
-        <ul class="nav pull-right">
-          <% if current_user %>
-              <li><%= link_to 'Cerrar Sesión', sign_out_url, :method => :delete %></li>
-              <li><a href="#" class="navbar-link">Logged in as <%= current_user.name %></a></li>
-          <% else %>
-              <li><%= link_to 'Iniciar sesión', signin_path %></li>
-              <li><%= link_to 'Registrarse', new_user_path %></li>
-          <% end %>
-        </ul>
-      </div><!--/.nav-collapse -->
+      <%= link_to 'Messaging', rooms_path, class: 'navbar-brand' %>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'Grupos', rooms_path %></li>
+        <% if current_user %>
+            <li><%= link_to 'Cerrar Sesión', sign_out_url, :method => :delete %></li>
+            <li><a href="#" class="navbar-link">Logged in as <%= current_user.name %></a></li>
+        <% else %>
+            <li><%= link_to 'Iniciar sesión', signin_path %></li>
+            <li><%= link_to 'Registrarse', new_user_path %></li>
+        <% end %>
+      </ul>
+      <!--<form class="navbar-form navbar-right">
+        <input class="form-control" placeholder="Search..." type="text">
+      </form>-->
     </div>
   </div>
-</div>
+</nav>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span3">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <% if current_user %>
-          <li class="nav-header">Mensajes</li>
+
+<div class="container-fluid main-container">
+  <div class="row main-row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <% if current_user %>
+            <li class="nav-header">Mensajes</li>
             <% current_user.rooms.each do |room| %>
-              <% if room.users.count > 1 %>
-                <li><%= link_to "#{(room.users - [current_user])[0].name}", room %></li>
-              <% end %>
+                <% if room.users.count == 2 %>
+                    <li class="<%= 'active' if params[:controller] == 'rooms' and params[:action] == 'show' and params[:id].to_i == room.id %>"><%= link_to "#{(room.users - [current_user])[0].name}", room %></li>
+                <% end %>
             <% end %>
             <li class="nav-header">Grupos</li>
             <% current_user.rooms.each do |room| %>
-              <% if room.users.count > 2 %>
-                <li><%= link_to "#{room.name}", room %></li>
-             <% end %>
+                <% if room.users.count > 2 %>
+                    <li class="<%= 'active' if params[:controller] == 'rooms' and params[:action] == 'show' and params[:id].to_i == room.id %>"><%= link_to "#{room.name}", room %></li>
+                <% end %>
             <% end %>
-          <% end %>
-          <!--
-          <li class="nav-header">Sidebar</li>
-          <li class="active"><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li class="nav-header">Sidebar</li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li class="nav-header">Sidebar</li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          -->
-        </ul>
-      </div><!--/.well -->
-    </div><!--/span-->
-    <div class="span9">
-      <div class="hero-unit">
-          <%= yield %>
-      </div>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 yield-container">
+      <%= yield %>
+    </div>
+  </div>
 
-    </div><!--/span-->
-  </div><!--/row-->
+</div>
 
-  <hr>
-
-  <footer>
-    <p>&copy; Company 2013</p>
-  </footer>
-
-</div><!--/.fluid-container-->
 </body>
 </html>

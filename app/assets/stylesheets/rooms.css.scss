@@ -1,16 +1,27 @@
 // Place all the styles related to the Rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
 
 #lines_container{
   width: 100%;
-  height: 400px;
-  overflow: auto;
+  height: calc(100% - 40px);
   border: 1px solid #AAA;
   box-shadow: #BBB 1px 1px 5px inset;
+  .title-room{
+    background: $title-room-color;
+    color: $title-room-color-font;
+    margin: 0 0 5px 0;
+    padding: 0 15px;
+  }
   #lines{
-    height: 80%;
+    height: calc(100% - 100px);
+    left: 0;
     overflow: auto;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
     .line{
       padding: 0px 15px 0px 10px;
       -webkit-border-radius: 10px;
@@ -33,7 +44,10 @@
     }
   }
   #form{
-    height: 20%;
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
     width: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

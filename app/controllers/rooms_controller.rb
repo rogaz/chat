@@ -46,9 +46,12 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        params[:users] = [] unless params[:users]
-        params[:users] << current_user.id
-        @room.users << User.find(params[:users])
+        array = params[:users].keys
+        params[:users] = {} unless array
+        hash = {}
+        hash["#{current_user.id}"] = current_user.id
+        params[:users].merge! hash
+        @room.users << User.find(params[:users].keys)
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render json: @room, status: :created, location: @room }
       else

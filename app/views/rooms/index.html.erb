@@ -9,7 +9,7 @@
   </tr>
 
   <% @rooms.each do |room| %>
-      <% if room.users.count > 1 %>
+      <% if room.users.count == 2 %>
           <tr>
             <td><%= link_to "#{(room.users - [current_user])[0].name}", room %></td>
             <!--

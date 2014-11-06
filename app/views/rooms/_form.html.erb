@@ -1,4 +1,4 @@
-<%= form_for(@room) do |f| %>
+<%= form_for(@room, html: {class: 'form-horizontal', role: 'form'}) do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
@@ -11,19 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, '', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
   </div>
 
-  <% User.all.each do |user| %>
-    <% if current_user != user %>
-    <div class="user">
-      <%= check_box_tag 'users[]', user.id %> <%= user.name %>
-    </div>
+  <div class="form-group">
+    <% User.all.each do |user| %>
+        <% if current_user != user %>
+            <div class="user col-sm-offset-2 col-sm-10">
+                <%= label_tag "users_#{user.id}", class: 'checkbox-inline' do %>
+                    <%= check_box_tag "users[#{user.id}]", user.id %>
+                    <%= user.name %>
+                <% end %>
+            </div>
+        <% end %>
     <% end %>
-  <% end %>
-  <div class="actions">
-    <%= f.submit %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Guardar', class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>
