@@ -86,7 +86,7 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  require 'amqp'
+  #require 'amqp'
   # per-process listener ports for debugging/admin/migrations
   # addr = "127.0.0.1:#{9293 + worker.nr}"
   # server.listen(addr, :tries => -1, :delay => 5, :tcp_nopush => true)
@@ -95,6 +95,7 @@ after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
       ActiveRecord::Base.establish_connection
 
+=begin
   t = Thread.new { AMQP.start }
   sleep 1
 
@@ -104,6 +105,7 @@ after_fork do |server, worker|
     AMQP.channel.direct("").publish("Rails App Unicorn Server started at #{Time.now.strftime('%H:%M:%S %m/%b/%Y')}", :routing_key => "amqpgem.rails.monitor")
 
   end
+=end
 
 
 

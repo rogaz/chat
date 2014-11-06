@@ -1,4 +1,4 @@
-require 'amqp'
+#require 'amqp'
 
 class MessagesController < ApplicationController
   # GET /messages
