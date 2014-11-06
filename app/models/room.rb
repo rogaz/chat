@@ -3,7 +3,7 @@ class Room < ActiveRecord::Base
 
   has_many :lines, :dependent => :destroy
   has_and_belongs_to_many :users
-  has_many :rooms_users
+  has_many :rooms_users, dependent: :destroy
 
 
   def users_to_user

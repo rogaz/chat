@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :messages
   has_and_belongs_to_many :rooms
-  has_many :rooms_users
+  has_many :rooms_users, dependent: :destroy
 
   after_create :create_chats
   #validates :login, :lenght => { :in => 4..15 }
