@@ -73,16 +73,17 @@
         destroy_line(data);
     });
 </script>
-<% (@room.users - [current_user]).each do |user| %>
-  <div class="user" style="float: left; margin-right: 5px;">
-    <span class="label label-info"><%= user.name %></span>
-  </div>
-<% end %>
-
 <div id="lines_container" class="col-sm-9 col-md-10">
   <div id="lines">
     <div class="row title-room">
-      <%= "<h4>#{@room.name}</h4>".html_safe if @room.users.count > 2 %>
+      <h4>
+      <%= "<span class='label label-danger room-name'>#{@room.name}</span>".html_safe if @room.users.count > 2 %>
+      <% (@room.users - [current_user]).each do |user| %>
+
+            <span class="label label-info"><%= user.name %></span>
+
+      <% end %>
+      </h4>
     </div>
     <% @room.lines.each do |line| %>
         <script>

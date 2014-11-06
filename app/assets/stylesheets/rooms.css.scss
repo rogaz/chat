@@ -13,6 +13,10 @@
     color: $title-room-color-font;
     margin: 0 0 5px 0;
     padding: 0 15px;
+
+    .room-name{
+      font-size: 1.1em;
+    }
   }
   #lines{
     height: calc(100% - 100px);
