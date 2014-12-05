@@ -4,18 +4,6 @@
 <p id="notice"><%= notice %></p>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("textarea#line_text").keypress(function(e){
-      if (e.which == 13){
-        $("form#new_line").submit();
-        $('#line_text').focus().val('');
-      }
-      if (e.keyCode == 13 && !e.shiftKey){
-          e.preventDefault();
-      }
-    });
-  });
-
   function create_line(data){
       $("#lines").append("<%= escape_javascript (render :partial => '/lines/line') %>");
       //console.log(data);
@@ -33,14 +21,6 @@
           last_line.find('a').attr('href', '/lines/'+line.id);
 
       move_to_bottom();
-  }
-
-  function destroy_line(data){
-      $("#line_"+data).fadeOut(100);
-  }
-
-  function move_to_bottom(){
-      $("#lines").scrollTop($("#lines")[0].scrollHeight);
   }
 
 </script>
