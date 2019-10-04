@@ -151,6 +151,11 @@ to the development database. Passing an argument will connect you to a different
 database, like <tt>rails dbconsole production</tt>. Currently works for MySQL,
 PostgreSQL and SQLite 3.
 
+== Newest version of Rails
+
+Here is the guide of the newest version of Rails V6.0, enjoy it.
+https://guides.rubyonrails.org/
+
 == Description of Contents
 
 The default directory structure of a generated Ruby on Rails application:
